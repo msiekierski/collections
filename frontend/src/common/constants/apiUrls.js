@@ -22,3 +22,17 @@ export const GET_UNIQUE_TAGS = base + "/item/tags";
 
 export const createCollectionItemUrl = () => `${base}/item`;
 export const REMOVE_ITEMS_BY_IDS = base + "/item";
+
+export const getLatestItemsUrl = (topNumber) =>
+  `${base}/item/latest/${topNumber}`;
+
+export const getLargestCollectionsUrl = (topNumber) =>
+  `${base}/collection/largest/${topNumber}`;
+
+export const getItemByIdUrl = (itemId) => `${base}/item/${itemId}`;
+export const createNewCommentUrl = (itemId) => `${base}/comment/item/${itemId}`;
+export const getCommentsByItemId = (itemId) => `${base}/comment/item/${itemId}`;
+export const setCommentVoteUrl = (userId, commentId) =>
+  `${base}/commentLike/user/${userId}/comment/${commentId}`;
+export const removeCommentVoteUrl = (userId, commentId) =>
+  `${base}/commentLike/user/${userId}/comment/${commentId}`;

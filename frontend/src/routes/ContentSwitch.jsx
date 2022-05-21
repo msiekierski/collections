@@ -6,8 +6,10 @@ import HomePage from "../common/pages/HomePage";
 import RegisterPage from "../common/pages/RegisterPage";
 import {
   COLLECTION_MANAGER_ROUTE,
+  COLLECTION_ROUTE,
   HOME_ROUTE,
   ITEMS_MANAGER_ROUTE,
+  ITEM_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
 } from "../common/constants/appRoutes";
@@ -19,6 +21,8 @@ import CollectionsManager from "../common/pages/UserCollectionsPage";
 import UserCollectionsPage from "../common/pages/UserCollectionsPage";
 import CollectionItemsManagement from "../common/pages/CollectionItemsManagement";
 import useIsEditor from "../common/hooks/useIsEditor";
+import CollectionPage from "../common/pages/CollectionPage";
+import ItemPage from "../common/pages/ItemPage";
 
 const ContentSwitch = () => {
   const auth = useAuth();
@@ -55,6 +59,8 @@ const ContentSwitch = () => {
           </PrivateRoute>
         }
       />
+      <Route path={COLLECTION_ROUTE} element={<CollectionPage />} />
+      <Route path={ITEM_ROUTE} element={<ItemPage />} />
     </Routes>
   );
 };

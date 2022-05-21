@@ -50,7 +50,7 @@ const LoginPage = () => {
           password: values.password,
         });
         dispatch(logIn(data));
-        navigate(HOME_ROUTE);
+        navigate(-1);
       } catch (e) {
         if (!!e.response.data) {
           setError(e.response.data);

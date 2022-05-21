@@ -8,3 +8,8 @@ export const getCollectionManagerRoute = (email) =>
 export const ITEMS_MANAGER_ROUTE = `${COLLECTION_MANAGER_ROUTE}/collection/:collectionId`;
 export const getItemsManagerRoute = (email, collectionId) =>
   `${getCollectionManagerRoute(email)}/collection/${collectionId}`;
+export const COLLECTION_ROUTE = "/collection/:collectionId";
+export const getCollectionPageRoute = (collectionId) =>
+  `/collection/${collectionId}`;
+export const ITEM_ROUTE = "/item/:itemId";
+export const getItemPageRoute = (itemId) => `/item/${itemId}`;

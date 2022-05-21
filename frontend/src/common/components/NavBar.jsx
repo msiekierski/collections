@@ -188,6 +188,7 @@ const NavBar = () => {
                     onClick={() => {
                       setAnchorElUser(null);
                       dispatch(logOut());
+                      navigate(HOME_ROUTE);
                     }}
                   >
                     <Typography textAlign="center" style={{ color: "red" }}>

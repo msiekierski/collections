@@ -34,9 +34,14 @@ const userRouter = require("./routes/user.routes");
 const collectionTopics = require("./routes/collectionTopics.routes");
 const collectionRouter = require("./routes/collection.routes");
 const itemRouter = require("./routes/item.routes");
+const commentRouter = require("./routes/comment.routes");
+const commnetLikeRouter = require("./routes/commentLike.routes");
+
 app.use("/user", userRouter);
 app.use("/collectionTopics", collectionTopics);
 app.use("/collection", collectionRouter);
 app.use("/item", itemRouter);
+app.use("/comment", commentRouter);
+app.use("/commentLike", commnetLikeRouter);
 
 app.listen(port, () => {});

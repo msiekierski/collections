@@ -4,6 +4,7 @@ const Collection = require("../models/collection.model");
 const CollectionTopic = require("../models/collectionTopic.model");
 const User = require("../models/user.model");
 const CustomField = require("../models/customField.model");
+const Item = require("../models/item.model");
 
 router.route("/user/:userId").post(async (req, res) => {
   const { userId } = req.params;
@@ -47,6 +48,7 @@ router.route("/:collectionId").delete(async (req, res) => {
   const toRemove = await Collection.findById(collectionId);
   await CustomField.deleteMany({ _id: { $in: toRemove.customFields } });
   await Collection.deleteOne({ _id: collectionId });
+  await Item.deleteMany({ collectionId });
   res.status(200).send("deleted");
 });
 
@@ -56,6 +58,22 @@ router.route("/:collectionId").get(async (req, res) => {
     .populate("customFields")
     .populate("items");
   res.status(200).json(collection);
+});
+
+router.route("/largest/:topLargest").get(async (req, res) => {
+  const { topLargest } = req.params;
+  let result = await Collection.aggregate([
+    { $unwind: "$items" },
+    { $group: { _id: "$_id", ct: { $sum: 1 } } },
+    { $sort: { ct: -1 } },
+  ]);
+
+  result = result.slice(0, topLargest);
+  const matching = await Promise.allSettled(
+    result.map(async (collection) => Collection.findById(collection["_id"]))
+  );
+  result.forEach((entry, index) => (entry.info = matching[index].value));
+  res.status(200).json(result);
 });
 
 module.exports = router;

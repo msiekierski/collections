@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 const Item = require("../models/item.model");
 const Collection = require("../models/collection.model");
+const { json } = require("body-parser");
 
 router.route("/tags").get(async (req, res) => {
   const allItems = await Item.find({});
@@ -39,6 +40,25 @@ router.route("/").delete(async (req, res) => {
     await collectionWithItem.save();
   }
   res.status(200).send("ok");
+});
+
+router.route("/latest/:topLatest").get(async (req, res) => {
+  const { topLatest } = req.params;
+  const result = await Item.find({})
+    .sort({ createdAt: -1 })
+    .limit(topLatest)
+    .populate("collectionId")
+    .populate({
+      path: "collectionId",
+      populate: { path: "authorId", collection: "User" },
+    });
+  res.status(200).json(result);
+});
+
+router.route("/:itemId").get(async (req, res) => {
+  const { itemId } = req.params;
+  const item = await Item.findById(itemId).populate("collectionId");
+  res.status(200).json(item);
 });
 
 module.exports = router;
