@@ -31,6 +31,10 @@ router.route("/logIn").post(async (req, res) => {
   try {
     const user = await User.findOne({ email, password }, { password: 0 });
     if (!!user) {
+      if (user.isBlocked) {
+        res.status(403).send("Account blocked");
+        return;
+      }
       res.json(user);
     } else {
       res.status(404).send("Invalid credentials");
