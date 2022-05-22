@@ -14,6 +14,14 @@ router.route("/tags").get(async (req, res) => {
   res.status(200).json(uniqueTags);
 });
 
+router.route("/tags/count").get(async (req, res) => {
+  const result = await Item.aggregate([
+    { $unwind: "$tags" },
+    { $group: { _id: "$tags", ct: { $sum: 1 } } },
+  ]);
+  res.status(200).json(result);
+});
+
 router.route("/").post(async (req, res) => {
   const { name, tags, collectionId, customFields } = req.body;
   let newItem = new Item({

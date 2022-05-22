@@ -36,3 +36,5 @@ export const setCommentVoteUrl = (userId, commentId) =>
   `${base}/commentLike/user/${userId}/comment/${commentId}`;
 export const removeCommentVoteUrl = (userId, commentId) =>
   `${base}/commentLike/user/${userId}/comment/${commentId}`;
+
+export const GET_TAGS_WITH_COUNT_URL = `${base}/item/tags/count`;
