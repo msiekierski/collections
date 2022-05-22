@@ -42,3 +42,4 @@ export const GET_TAGS_WITH_COUNT_URL = `${base}/item/tags/count`;
 export const updateUserUrl = (userId) => `${base}/user/id/${userId}`;
 export const deleteUserUrl = (userId) => `${base}/user/id/${userId}`;
 export const GET_USERS_URL = `${base}/user`;
+export const getSearchResult = (text) => `${base}/search/${text}`;

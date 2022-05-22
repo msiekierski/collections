@@ -36,6 +36,7 @@ const collectionRouter = require("./routes/collection.routes");
 const itemRouter = require("./routes/item.routes");
 const commentRouter = require("./routes/comment.routes");
 const commnetLikeRouter = require("./routes/commentLike.routes");
+const searchRouter = require("./routes/search.routes");
 
 app.use("/user", userRouter);
 app.use("/collectionTopics", collectionTopics);
@@ -43,5 +44,6 @@ app.use("/collection", collectionRouter);
 app.use("/item", itemRouter);
 app.use("/comment", commentRouter);
 app.use("/commentLike", commnetLikeRouter);
+app.use("/search", searchRouter);
 
 app.listen(port, () => {});

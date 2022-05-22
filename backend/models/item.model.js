@@ -13,6 +13,8 @@ const itemSchema = new Schema(
   { timestamps: true }
 );
 
+itemSchema.index({ name: "text", tags: "text" });
+
 const Item = mongoose.model("Item", itemSchema);
 
 module.exports = Item;

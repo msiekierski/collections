@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 import React from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
-import NavBar from "./common/components/NavBar";
+import NavBar from "./common/components/NavBar/NavBar";
 import { DARK_MODE, LIGHT_MODE } from "./common/constants/themeModes";
 import { Counter } from "./features/counter/Counter";
 import { selectUser } from "./features/user/userSlice";
