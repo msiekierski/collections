@@ -5,6 +5,7 @@ import React from "react";
 import HomePage from "../common/pages/HomePage";
 import RegisterPage from "../common/pages/RegisterPage";
 import {
+  ADMIN_ROUTE,
   COLLECTION_MANAGER_ROUTE,
   COLLECTION_ROUTE,
   HOME_ROUTE,
@@ -16,13 +17,14 @@ import {
 import LoginPage from "../common/pages/LoginPage";
 import PrivateRoute from "./PrivateRoute";
 import useAuth from "../common/hooks/useAuth";
-import { GUEST, REGULAR } from "../common/constants/authStates";
+import { ADMIN, GUEST, REGULAR } from "../common/constants/authStates";
 import CollectionsManager from "../common/pages/UserCollectionsPage";
 import UserCollectionsPage from "../common/pages/UserCollectionsPage";
 import CollectionItemsManagement from "../common/pages/CollectionItemsManagement";
 import useIsEditor from "../common/hooks/useIsEditor";
 import CollectionPage from "../common/pages/CollectionPage";
 import ItemPage from "../common/pages/ItemPage";
+import AdminPage from "../common/pages/AdminPage";
 
 const ContentSwitch = () => {
   const auth = useAuth();
@@ -61,6 +63,14 @@ const ContentSwitch = () => {
       />
       <Route path={COLLECTION_ROUTE} element={<CollectionPage />} />
       <Route path={ITEM_ROUTE} element={<ItemPage />} />
+      <Route
+        path={ADMIN_ROUTE}
+        element={
+          <PrivateRoute redirectPath={HOME_ROUTE} isAllowed={auth === ADMIN}>
+            <AdminPage />
+          </PrivateRoute>
+        }
+      />
     </Routes>
   );
 };

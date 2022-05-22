@@ -13,3 +13,4 @@ export const getCollectionPageRoute = (collectionId) =>
   `/collection/${collectionId}`;
 export const ITEM_ROUTE = "/item/:itemId";
 export const getItemPageRoute = (itemId) => `/item/${itemId}`;
+export const ADMIN_ROUTE = "/admin";

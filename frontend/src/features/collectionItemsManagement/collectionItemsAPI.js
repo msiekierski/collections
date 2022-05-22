@@ -19,6 +19,5 @@ export function createNewItem(newItem) {
 }
 
 export function removeItems(ids) {
-  console.log(ids);
   return axios.delete(REMOVE_ITEMS_BY_IDS, { data: { ids } });
 }

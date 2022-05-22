@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "../features/user/userSlice";
 import collectionItemsReducer from "../features/collectionItemsManagement/collectionItemsSlice";
+import usersManagementReducer from "../features/usersManagement/usersManagementSlice";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import {
@@ -37,6 +38,7 @@ export const store = configureStore({
   reducer: {
     root: persistedReducer,
     collectionItems: collectionItemsReducer,
+    usersManagement: usersManagementReducer,
   },
   devTools: process.env.NODE_ENV !== "production",
   middleware: [thunk],

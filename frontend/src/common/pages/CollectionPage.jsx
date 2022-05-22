@@ -41,8 +41,6 @@ const CollectionPage = () => {
     return <LoadingSpinner />;
   }
 
-  console.log(collection);
-
   return (
     <Box
       sx={{

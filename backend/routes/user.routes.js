@@ -8,6 +8,7 @@ router.route("/").post(async (req, res) => {
     email,
     password,
     isAdmin: false,
+    isBlocked: false,
     collections: [],
   });
 
@@ -43,6 +44,41 @@ router.route("/email/:email").get(async (req, res) => {
   const { email } = req.params;
   const user = await User.findOne({ email: email });
   res.status(200).json(user);
+});
+
+router.route("/id/:userId").put(async (req, res) => {
+  const { isAdmin, isBlocked } = req.body;
+  const { userId } = req.params;
+
+  let user = await User.findById(userId);
+
+  if (!!user) {
+    if (isAdmin !== undefined) {
+      user.isAdmin = isAdmin;
+    }
+    if (isBlocked !== undefined) {
+      user.isBlocked = isBlocked;
+    }
+  } else {
+    res.status(404).send("User does not exist");
+  }
+  user = await user.save();
+  res.status(200).json(user);
+});
+
+router.route("/id/:userId").delete(async (req, res) => {
+  const { userId } = req.params;
+  const deleted = await User.deleteOne({ _id: userId });
+  if (!!deleted) {
+    res.status(200).send(`User ${userId} deleted`);
+  } else {
+    res.status(404).send("User does not exist");
+  }
+});
+
+router.route("/").get(async (req, res) => {
+  const allUsers = await User.find({});
+  res.status(200).json(allUsers);
 });
 
 module.exports = router;

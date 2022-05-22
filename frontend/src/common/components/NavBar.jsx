@@ -24,10 +24,11 @@ import {
   HOME_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
+  ADMIN_ROUTE,
 } from "../constants/appRoutes";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import { GUEST, REGULAR } from "../constants/authStates";
+import { ADMIN, GUEST, REGULAR } from "../constants/authStates";
 import { useDispatch, useSelector } from "react-redux";
 import {
   logOut,
@@ -154,7 +155,7 @@ const NavBar = () => {
                 </Button>
               </>
             )}
-            {auth === REGULAR && (
+            {auth !== GUEST && (
               <>
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar>
@@ -184,6 +185,16 @@ const NavBar = () => {
                   >
                     <Typography textAlign="center">Collections</Typography>
                   </MenuItem>
+                  {auth === ADMIN && (
+                    <MenuItem
+                      onClick={() => {
+                        setAnchorElUser(null);
+                        navigate(ADMIN_ROUTE);
+                      }}
+                    >
+                      <Typography>Admin panel</Typography>
+                    </MenuItem>
+                  )}
                   <MenuItem
                     onClick={() => {
                       setAnchorElUser(null);

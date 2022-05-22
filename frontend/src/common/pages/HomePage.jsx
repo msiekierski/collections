@@ -45,8 +45,6 @@ const HomePage = () => {
     );
   }
 
-  console.log(data.tags);
-
   return (
     <Box sx={{ m: 3, display: "flex", flexDirection: "column", gap: 6 }}>
       <Box>

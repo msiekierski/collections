@@ -15,12 +15,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ItemCreator from "../../common/components/ItemCreator";
 import { removeItems } from "../../features/collectionItemsManagement/collectionItemsAPI";
 
+
 const CollectionItemsManagement = () => {
   const { email, collectionId } = useParams();
   const [isCreatorOpen, setIsCreatorOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
   const { isFetching, items, name, topic, customFields, uniqueTags } =
     useSelector(selectCollectionItems);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { height, width } = useWindowDimensions();
