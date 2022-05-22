@@ -19,12 +19,14 @@ function removeDuplicates(originalArray, prop) {
 
 router.route("/:searchText").get(async (req, res) => {
   const { searchText } = req.params;
-  const items = await Item.find({ $text: { $search: searchText } });
+  const items = await Item.find({ $text: { $search: searchText } }).populate(
+    "collectionId"
+  );
   const comments = await Comment.find({
     $text: { $search: searchText },
   })
     .populate("itemId")
-    .populate("collectionId");
+    .populate("itemId.collectionId");
 
   const itemsFromComments = comments.map((comment) => comment.itemId);
 
