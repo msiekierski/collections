@@ -56,7 +56,8 @@ router.route("/:collectionId").get(async (req, res) => {
   const { collectionId } = req.params;
   const collection = await Collection.findById(collectionId)
     .populate("customFields")
-    .populate("items");
+    .populate("items")
+    .populate("authorId");
   res.status(200).json(collection);
 });
 

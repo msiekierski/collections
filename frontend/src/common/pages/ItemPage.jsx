@@ -109,6 +109,7 @@ const ItemPage = () => {
                   alignItems="end"
                   justifyContent="end"
                   gap={1}
+                  flexWrap="wrap"
                 >
                   {item.tags.map((tag, index) => (
                     <Chip
