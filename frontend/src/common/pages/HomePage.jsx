@@ -12,10 +12,13 @@ import CollectionList from "../components/CollectionList";
 import { TagCloud } from "react-tagcloud";
 import i18next from "i18next";
 import translate from "../utils/translate";
+import { useNavigate } from "react-router-dom";
+import { getTagSearchRoute } from "../constants/appRoutes";
 
 const HomePage = () => {
   const [data, setData] = useState({});
   const [isFetching, setIsFetching] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -89,7 +92,7 @@ const HomePage = () => {
           minSize={12}
           maxSize={35}
           tags={data.tags.map(({ _id, ct }) => ({ value: _id, count: ct }))}
-          onClick={(tag) => alert(`'${tag.value}' was selected!`)}
+          onClick={(tag) => navigate(getTagSearchRoute(tag.value))}
         />
       </Box>
     </Box>

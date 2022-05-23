@@ -13,6 +13,7 @@ import {
   ITEM_ROUTE,
   LOGIN_ROUTE,
   REGISTER_ROUTE,
+  TAG_SEARCH_ROUTE,
 } from "../common/constants/appRoutes";
 import LoginPage from "../common/pages/LoginPage";
 import PrivateRoute from "./PrivateRoute";
@@ -25,6 +26,7 @@ import useIsEditor from "../common/hooks/useIsEditor";
 import CollectionPage from "../common/pages/CollectionPage";
 import ItemPage from "../common/pages/ItemPage";
 import AdminPage from "../common/pages/AdminPage";
+import TagSearchPage from "../common/pages/TagSearchPage";
 
 const ContentSwitch = () => {
   const auth = useAuth();
@@ -71,6 +73,7 @@ const ContentSwitch = () => {
           </PrivateRoute>
         }
       />
+      <Route path={TAG_SEARCH_ROUTE} element={<TagSearchPage />} />
     </Routes>
   );
 };

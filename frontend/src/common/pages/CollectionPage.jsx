@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { getCollectionByIdUrl } from "../constants/apiUrls";
 import axios from "axios";
@@ -17,13 +17,14 @@ import {
   Typography,
 } from "@mui/material";
 import MDEditor from "@uiw/react-md-editor";
-import { getItemPageRoute } from "../constants/appRoutes";
+import { getItemPageRoute, getTagSearchRoute } from "../constants/appRoutes";
 import translate from "../utils/translate";
 
 const CollectionPage = () => {
   const { collectionId } = useParams();
   const [collection, setCollection] = useState(null);
   const [tableRows, setTableRows] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCollection = async () => {
@@ -112,7 +113,7 @@ const CollectionPage = () => {
                       key={index}
                       label={tag}
                       variant="outlined"
-                      onClick={() => {}}
+                      onClick={() => {navigate(getTagSearchRoute(tag))}}
                     />
                   ))}
                 </Box>

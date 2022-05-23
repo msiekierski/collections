@@ -15,7 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, styled } from "@mui/system";
-import { getCollectionPageRoute } from "../constants/appRoutes";
+import {
+  getCollectionPageRoute,
+  getTagSearchRoute,
+} from "../constants/appRoutes";
 import CommentCreator from "../components/CommentCreator";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
@@ -117,7 +120,9 @@ const ItemPage = () => {
                       key={index}
                       label={tag}
                       variant="outlined"
-                      onClick={() => {}}
+                      onClick={() => {
+                        navigate(getTagSearchRoute(tag));
+                      }}
                     />
                   ))}
                 </Box>

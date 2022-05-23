@@ -22,6 +22,12 @@ router.route("/tags/count").get(async (req, res) => {
   res.status(200).json(result);
 });
 
+router.route("/tag/:tag").get(async (req, res) => {
+  const { tag } = req.params;
+  const result = await Item.find({ tags: tag });
+  res.status(200).json(result);
+});
+
 router.route("/").post(async (req, res) => {
   const { name, tags, collectionId, customFields } = req.body;
   let newItem = new Item({
