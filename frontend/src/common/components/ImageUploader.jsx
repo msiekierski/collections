@@ -1,6 +1,6 @@
 import React from "react";
 import ImageUploading from "react-images-uploading";
-import { DropzoneArea } from "material-ui-dropzone";
+import { DropzoneArea } from "mui-file-dropzone";
 import { makeStyles } from "@mui/material";
 import { Box } from "@mui/system";
 import { useSelector } from "react-redux";
@@ -21,7 +21,7 @@ const ImageUploader = ({ image, setImage }) => {
         acceptedFiles={["image/jpeg", "image/png"]}
         showPreviews={false}
         filesLimit={1}
-        maxFileSize={5000000}
+        maxFileSize={40000000}
         onChange={(files) => {
           if (files.length > 0) setImage(files[0]);
         }}

@@ -12,10 +12,12 @@ import {
   Badge,
   Button,
   FormControlLabel,
+  Grid,
   Menu,
   MenuItem,
   Stack,
   Switch,
+  useMediaQuery,
 } from "@mui/material";
 import {
   COLLECTION_MANAGER_ROUTE,
@@ -39,6 +41,7 @@ import SearchBar from "./SearchBar";
 import CheckIcon from "@mui/icons-material/Check";
 import { ENGLISH_LANGUAGE, POLISH_LANGUAGE } from "../../constants/languages";
 import translate from "../../utils/translate";
+import { useTheme } from "@emotion/react";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -47,6 +50,8 @@ const NavBar = () => {
   const user = useSelector(selectUser);
   const { settings } = user;
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down(1180));
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
@@ -54,148 +59,169 @@ const NavBar = () => {
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
+
+  console.log(matches);
   return (
-    <Box>
-      <AppBar
-        position="static"
-        enableColorOnDark={settings.isDarkMode}
-        color="default"
+    <AppBar
+      position="static"
+      enableColorOnDark={settings.isDarkMode}
+      color="default"
+    >
+      <Toolbar
+      // sx={{
+      //   display: "flex",
+      //   justifyContent: "space-between",
+      //   alignItems: "center",
+      //   flexDirection: matches ? "column" : "row",
+      //   flexWrap: "wrap",
+      //   gap: 3,
+      //   p: 1,
+      // }}
       >
-        <Toolbar
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
+        <Grid
+          container
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          flexDirection={matches ? "column" : "row"}
+          flexWrap="wrap"
+          gap={1}
+          padding={1}
         >
-          <Link
-            to={HOME_ROUTE}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <Typography variant="h6" noWrap component="div">
-              Wonderful Collections
-            </Typography>
-          </Link>
-          <SearchBar />
-          <Stack direction="row" spacing={2}>
-            <FormControlLabel
-              control={
-                <Switch
-                  color="secondary"
-                  checked={settings.isDarkMode}
-                  onChange={(e) => dispatch(toggleThemeMode())}
-                />
-              }
-              label={translate("darkTheme")}
-            />
-            <div
-              onClick={() => dispatch(setLanguage(ENGLISH_LANGUAGE))}
-              style={{ cursor: "pointer" }}
+          <Grid item>
+            <Link
+              to={HOME_ROUTE}
+              style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Badge
-                badgeContent={
-                  settings.language === ENGLISH_LANGUAGE ? (
-                    <CheckIcon sx={{ color: "green" }} />
-                  ) : null
+              <Typography variant="h6" noWrap component="div">
+                Wonderful Collections
+              </Typography>
+            </Link>
+          </Grid>
+          <Grid item width={`${matches ? "100%" : "50%"}`}>
+            <SearchBar />
+          </Grid>
+          <Grid item>
+            <Stack direction="row" spacing={2}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    color="secondary"
+                    checked={settings.isDarkMode}
+                    onChange={(e) => dispatch(toggleThemeMode())}
+                  />
                 }
+                label={translate("darkTheme")}
+              />
+              <div
+                onClick={() => dispatch(setLanguage(ENGLISH_LANGUAGE))}
+                style={{ cursor: "pointer" }}
               >
-                <Avatar src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" />
-              </Badge>
-            </div>
-            <div
-              onClick={() => dispatch(setLanguage(POLISH_LANGUAGE))}
-              style={{ cursor: "pointer" }}
-            >
-              <Badge
-                badgeContent={
-                  settings.language === POLISH_LANGUAGE ? (
-                    <CheckIcon sx={{ color: "green" }} />
-                  ) : null
-                }
+                <Badge
+                  badgeContent={
+                    settings.language === ENGLISH_LANGUAGE ? (
+                      <CheckIcon sx={{ color: "green" }} />
+                    ) : null
+                  }
+                >
+                  <Avatar src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" />
+                </Badge>
+              </div>
+              <div
+                onClick={() => dispatch(setLanguage(POLISH_LANGUAGE))}
+                style={{ cursor: "pointer" }}
               >
-                <Avatar src="http://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" />
-              </Badge>
-            </div>
+                <Badge
+                  badgeContent={
+                    settings.language === POLISH_LANGUAGE ? (
+                      <CheckIcon sx={{ color: "green" }} />
+                    ) : null
+                  }
+                >
+                  <Avatar src="http://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" />
+                </Badge>
+              </div>
 
-            {auth === GUEST && (
-              <>
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  onClick={() => navigate(LOGIN_ROUTE)}
-                >
-                  {translate("login")}
-                </Button>
-
-                <Button
-                  color="secondary"
-                  variant="contained"
-                  onClick={() => navigate(REGISTER_ROUTE)}
-                >
-                  {translate("register")}
-                </Button>
-              </>
-            )}
-            {auth !== GUEST && (
-              <>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar>
-                    <PersonOutlineIcon />
-                  </Avatar>
-                </IconButton>
-                <Menu
-                  sx={{ mt: "45px" }}
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem
-                    onClick={() => {
-                      setAnchorElUser(null);
-                      navigate(getCollectionManagerRoute(user.user.email));
-                    }}
+              {auth === GUEST && (
+                <>
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={() => navigate(LOGIN_ROUTE)}
                   >
-                    <Typography textAlign="center">
-                      {translate("collections")}
-                    </Typography>
-                  </MenuItem>
-                  {auth === ADMIN && (
+                    {translate("login")}
+                  </Button>
+
+                  <Button
+                    color="secondary"
+                    variant="contained"
+                    onClick={() => navigate(REGISTER_ROUTE)}
+                  >
+                    {translate("register")}
+                  </Button>
+                </>
+              )}
+              {auth !== GUEST && (
+                <>
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar>
+                      <PersonOutlineIcon />
+                    </Avatar>
+                  </IconButton>
+                  <Menu
+                    sx={{ mt: "45px" }}
+                    anchorEl={anchorElUser}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                    open={Boolean(anchorElUser)}
+                    onClose={handleCloseUserMenu}
+                  >
                     <MenuItem
                       onClick={() => {
                         setAnchorElUser(null);
-                        navigate(ADMIN_ROUTE);
+                        navigate(getCollectionManagerRoute(user.user.email));
                       }}
                     >
-                      <Typography>{translate("adminPanel")}</Typography>
+                      <Typography textAlign="center">
+                        {translate("collections")}
+                      </Typography>
                     </MenuItem>
-                  )}
-                  <MenuItem
-                    onClick={() => {
-                      setAnchorElUser(null);
-                      dispatch(logOut());
-                      navigate(HOME_ROUTE);
-                    }}
-                  >
-                    <Typography textAlign="center" style={{ color: "red" }}>
-                      {translate("logOut")}
-                    </Typography>
-                  </MenuItem>
-                </Menu>
-              </>
-            )}
-          </Stack>
-        </Toolbar>
-      </AppBar>
-    </Box>
+                    {auth === ADMIN && (
+                      <MenuItem
+                        onClick={() => {
+                          setAnchorElUser(null);
+                          navigate(ADMIN_ROUTE);
+                        }}
+                      >
+                        <Typography>{translate("adminPanel")}</Typography>
+                      </MenuItem>
+                    )}
+                    <MenuItem
+                      onClick={() => {
+                        setAnchorElUser(null);
+                        dispatch(logOut());
+                        navigate(HOME_ROUTE);
+                      }}
+                    >
+                      <Typography textAlign="center" style={{ color: "red" }}>
+                        {translate("logOut")}
+                      </Typography>
+                    </MenuItem>
+                  </Menu>
+                </>
+              )}
+            </Stack>
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   );
 };
 

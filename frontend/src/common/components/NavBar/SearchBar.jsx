@@ -86,7 +86,7 @@ const SearchBar = () => {
 
   return (
     <>
-      <Search ref={searchBarRef}>
+      <Search ref={searchBarRef} style={{ width: "100%" }}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>

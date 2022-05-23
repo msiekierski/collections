@@ -243,10 +243,11 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
+            marginBottom: 10,
           }}
         >
           <Typography>{translate("collectionPhoto")}</Typography>
-          <div style={{ width: "50%" }}>
+          <div style={{ width: "50%", margin: 20 }}>
             <ImageUploader image={image} setImage={setImage} />
           </div>
         </div>
@@ -271,6 +272,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
           variant="contained"
           color="success"
           fullWidth
+          size="large"
           sx={{ mt: 2 }}
         >
           {translate("create")}
