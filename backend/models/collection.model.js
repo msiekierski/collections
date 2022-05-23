@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
+const Item = require("./item.model");
+const CustomField = require("./customField.model");
 
 const collectionSchema = new Schema({
   name: String,
@@ -12,6 +14,23 @@ const collectionSchema = new Schema({
   items: [{ type: Schema.Types.ObjectId, ref: "Item" }],
 });
 
-const Collection = mongoose.model("Collection", collectionSchema);
+collectionSchema.pre("deleteMany", async function (next) {
+  try {
+    let deletedData = await Collection.find(this._conditions).lean();
+    await Promise.all([
+      ...deletedData.map((collection) =>
+        CustomField.deleteMany({ _id: { $in: collection.customFields } })
+      ),
+      ...deletedData.map((collection) =>
+        Item.deleteMany({ collectionId: collection["_id"] })
+      ),
+    ]);
+    return next(); // normal save
+  } catch (error) {
+    return next(error);
+  }
+});
+
+let Collection = mongoose.model("Collection", collectionSchema);
 
 module.exports = Collection;

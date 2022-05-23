@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const Schema = mongoose.Schema;
-
+const Collection = require("./collection.model");
 const SALT_WORK_FACTOR = 10;
 
 const userSchema = new Schema(
@@ -29,6 +29,18 @@ userSchema.methods.validatePassword = async function validatePassword(data) {
   return bcrypt.compare(data, this.password);
 };
 
-const User = mongoose.model("User", userSchema);
+userSchema.pre("deleteOne", async function (next) {
+  try {
+    let deletedData = await User.find(this._conditions).lean();
+    if (deletedData.length > 0) {
+      await Collection.deleteMany({ authorId: deletedData[0]["_id"] });
+    }
+    return next(); // normal save
+  } catch (error) {
+    return next(error);
+  }
+});
+
+let User = mongoose.model("User", userSchema);
 
 module.exports = User;

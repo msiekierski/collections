@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const CommentLike = require("./commentLike.model");
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema(
@@ -13,6 +13,22 @@ const commentSchema = new Schema(
 
 commentSchema.index({ text: "text" });
 
-const Comment = mongoose.model("Comment", commentSchema);
+commentSchema.pre("deleteMany", async function (next) {
+  try {
+    console.log("in pre commnet");
+    let deletedData = await Comment.find(this._conditions).lean();
+    console.log(deletedData);
+    await Promise.allSettled(
+      deletedData.map((data) =>
+        CommentLike.deleteMany({ commentId: data["_id"] })
+      )
+    );
+    return next(); // normal save
+  } catch (error) {
+    return next(error);
+  }
+});
+
+let Comment = mongoose.model("Comment", commentSchema);
 
 module.exports = Comment;

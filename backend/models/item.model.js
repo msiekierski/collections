@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Comment = require("./comment.model");
 const Schema = mongoose.Schema;
 
 const itemSchema = new Schema(
@@ -15,6 +15,19 @@ const itemSchema = new Schema(
 
 itemSchema.index({ name: "text", tags: "text" });
 
-const Item = mongoose.model("Item", itemSchema);
+itemSchema.pre("deleteMany", async function (next) {
+  try {
+    let deletedData = await Item.find(this._conditions).lean();
+    console.log(deletedData);
+    await Promise.all(
+      deletedData.map((data) => Comment.deleteMany({ itemId: data["_id"] }))
+    );
+    return next(); // normal save
+  } catch (error) {
+    return next(error);
+  }
+});
+
+let Item = mongoose.model("Item", itemSchema);
 
 module.exports = Item;
