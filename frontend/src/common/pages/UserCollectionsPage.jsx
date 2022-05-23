@@ -90,7 +90,7 @@ const UserCollectionsPage = () => {
           >
             <Stack direction="column" spacing={3}>
               <Typography variant="h5" textAlign="center">
-                User has no collections
+                {translate("userHasNoCollections")}
               </Typography>
               {isEditor && (
                 <Button

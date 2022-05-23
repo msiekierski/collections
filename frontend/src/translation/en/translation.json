@@ -35,5 +35,6 @@
   "itemCreator": "Item creator",
   "repeatPassword": "Repeat Password",
   "likeError": "Log in to like/dislike the comment",
-  "clickToRegister": "Don't have an account? Click to register"
+  "clickToRegister": "Don't have an account? Click to register",
+  "userHasNoCollections": "User has no collections"
 }

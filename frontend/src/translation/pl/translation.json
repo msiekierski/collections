@@ -35,5 +35,6 @@
   "itemCreator": "Kreator przedmiotu",
   "repeatPassword": "Powtórz Hasło",
   "likeError": "Zaloguj się aby ocenić komentarz",
-  "clickToRegister": "Nie masz konta? Kliknij i zarejestruj się"
+  "clickToRegister": "Nie masz konta? Kliknij i zarejestruj się",
+  "userHasNoCollections": "Użytkownik nie ma żadnych kolekcji"
 }
