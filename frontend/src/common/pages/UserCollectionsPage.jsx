@@ -16,6 +16,7 @@ import {
   deleteCollectionByIdUrl,
 } from "../constants/apiUrls";
 import CollectionPaper from "../components/CollectionPaper";
+import translate from "../utils/translate";
 
 const UserCollectionsPage = () => {
   let { email } = useParams();
@@ -98,7 +99,7 @@ const UserCollectionsPage = () => {
                   startIcon={<AddIcon />}
                   onClick={() => setIsCreatorOpen(true)}
                 >
-                  Create Collection
+                  {translate("createCollection")}
                 </Button>
               )}
             </Stack>
@@ -127,7 +128,7 @@ const UserCollectionsPage = () => {
             startIcon={<AddIcon />}
             onClick={() => setIsCreatorOpen(true)}
           >
-            Create Collection
+            {translate("createCollection")}
           </Button>
         )}
       </Box>

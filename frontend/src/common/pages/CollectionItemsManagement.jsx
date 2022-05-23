@@ -14,7 +14,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ItemCreator from "../../common/components/ItemCreator";
 import { removeItems } from "../../features/collectionItemsManagement/collectionItemsAPI";
-
+import translate from "../utils/translate";
 
 const CollectionItemsManagement = () => {
   const { email, collectionId } = useParams();
@@ -81,7 +81,7 @@ const CollectionItemsManagement = () => {
           textAlign="center"
           sx={{ m: 3 }}
         >
-          Collection: {name}
+          {translate("collection")}: {name}
         </Typography>
         <Typography component="div" variant="h5" textAlign="center">
           ({topic})
@@ -93,7 +93,7 @@ const CollectionItemsManagement = () => {
             startIcon={<AddIcon />}
             onClick={() => setIsCreatorOpen(true)}
           >
-            Create Item
+            {translate("createItem")}
           </Button>
           <Button
             color="error"
@@ -101,7 +101,7 @@ const CollectionItemsManagement = () => {
             startIcon={<DeleteIcon />}
             onClick={() => handleDeleteSelectedClick()}
           >
-            Delete selected
+            {translate("deleteSelected")}
           </Button>
         </Stack>
         <div style={{ width: "100%", height: 400, marginTop: 30 }}>

@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, selectUser } from "../../features/user/userSlice";
 import { HOME_ROUTE } from "../constants/appRoutes";
+import translate from "../utils/translate";
 
 const validationSchema = yup.object({
   email: yup
@@ -85,7 +86,7 @@ const LoginPage = () => {
           </Avatar>
         </div>
         <Typography textAlign="center" variant="h5">
-          Log In
+          {translate("login")}
         </Typography>
         {error && (
           <Alert sx={{ mt: 1, mb: 1 }} severity="error">
@@ -110,7 +111,7 @@ const LoginPage = () => {
             fullWidth
             id="password"
             name="password"
-            label="Password"
+            label={translate("password")}
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -124,7 +125,7 @@ const LoginPage = () => {
             fullWidth
             sx={{ mt: 2 }}
           >
-            Log In
+            {translate("login")}
           </LoadingButton>
         </Box>
       </Box>

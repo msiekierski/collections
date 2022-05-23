@@ -22,6 +22,7 @@ import { selectUser } from "../../features/user/userSlice";
 import useAuth from "../hooks/useAuth";
 import { ADMIN, REGULAR } from "../constants/authStates";
 import Comment from "../components/Comment";
+import translate from "../utils/translate";
 
 const ItemPage = () => {
   const { user } = useSelector(selectUser);
@@ -37,7 +38,7 @@ const ItemPage = () => {
     const fetchItem = async () => {
       setIsFetching(true);
       const { data } = await axios.get(getItemByIdUrl(itemId));
-      let rows = [{ name: "Name", value: data.name }];
+      let rows = [{ name: translate("name"), value: data.name }];
       data.customFieldsValues.forEach(({ name, value }) => {
         rows.push({ name, value });
       });
@@ -79,7 +80,7 @@ const ItemPage = () => {
           <TableBody>
             <TableRow>
               <TableCell>
-                <Typography>Collection</Typography>
+                <Typography>{translate("collection")}</Typography>
               </TableCell>
               <TableCell
                 onClick={() =>
@@ -102,7 +103,7 @@ const ItemPage = () => {
               </TableRow>
             ))}
             <TableRow>
-              <TableCell>Tags</TableCell>
+              <TableCell>{translate("tags")}</TableCell>
               <TableCell>
                 <Box
                   display="flex"
@@ -126,7 +127,7 @@ const ItemPage = () => {
         </Table>
       </TableContainer>
       <Typography variant="h4" sx={{ mt: 4, mb: 3 }}>
-        Comments ({comments.length})
+        {translate("comments")} ({comments.length})
       </Typography>
       {(auth === REGULAR || auth === ADMIN) && (
         <Box sx={{ mb: 3 }}>

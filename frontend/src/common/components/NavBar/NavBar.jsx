@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import {
   Avatar,
+  Badge,
   Button,
   FormControlLabel,
   Menu,
@@ -31,11 +32,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   logOut,
   selectUser,
+  setLanguage,
   toggleThemeMode,
 } from "../../../features/user/userSlice";
 import SearchBar from "./SearchBar";
-
-
+import CheckIcon from "@mui/icons-material/Check";
+import { ENGLISH_LANGUAGE, POLISH_LANGUAGE } from "../../constants/languages";
+import translate from "../../utils/translate";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -83,8 +86,37 @@ const NavBar = () => {
                   onChange={(e) => dispatch(toggleThemeMode())}
                 />
               }
-              label="Dark mode"
+              label={translate("darkTheme")}
             />
+            <div
+              onClick={() => dispatch(setLanguage(ENGLISH_LANGUAGE))}
+              style={{ cursor: "pointer" }}
+            >
+              <Badge
+                badgeContent={
+                  settings.language === ENGLISH_LANGUAGE ? (
+                    <CheckIcon sx={{ color: "green" }} />
+                  ) : null
+                }
+              >
+                <Avatar src="http://purecatamphetamine.github.io/country-flag-icons/3x2/GB.svg" />
+              </Badge>
+            </div>
+            <div
+              onClick={() => dispatch(setLanguage(POLISH_LANGUAGE))}
+              style={{ cursor: "pointer" }}
+            >
+              <Badge
+                badgeContent={
+                  settings.language === POLISH_LANGUAGE ? (
+                    <CheckIcon sx={{ color: "green" }} />
+                  ) : null
+                }
+              >
+                <Avatar src="http://purecatamphetamine.github.io/country-flag-icons/3x2/PL.svg" />
+              </Badge>
+            </div>
+
             {auth === GUEST && (
               <>
                 <Button
@@ -92,7 +124,7 @@ const NavBar = () => {
                   variant="contained"
                   onClick={() => navigate(LOGIN_ROUTE)}
                 >
-                  Log In
+                  {translate("login")}
                 </Button>
 
                 <Button
@@ -100,7 +132,7 @@ const NavBar = () => {
                   variant="contained"
                   onClick={() => navigate(REGISTER_ROUTE)}
                 >
-                  Register
+                  {translate("register")}
                 </Button>
               </>
             )}
@@ -132,7 +164,9 @@ const NavBar = () => {
                       navigate(getCollectionManagerRoute(user.user.email));
                     }}
                   >
-                    <Typography textAlign="center">Collections</Typography>
+                    <Typography textAlign="center">
+                      {translate("collections")}
+                    </Typography>
                   </MenuItem>
                   {auth === ADMIN && (
                     <MenuItem
@@ -141,7 +175,7 @@ const NavBar = () => {
                         navigate(ADMIN_ROUTE);
                       }}
                     >
-                      <Typography>Admin panel</Typography>
+                      <Typography>{translate("adminPanel")}</Typography>
                     </MenuItem>
                   )}
                   <MenuItem
@@ -152,7 +186,7 @@ const NavBar = () => {
                     }}
                   >
                     <Typography textAlign="center" style={{ color: "red" }}>
-                      Log Out
+                      {translate("logOut")}
                     </Typography>
                   </MenuItem>
                 </Menu>

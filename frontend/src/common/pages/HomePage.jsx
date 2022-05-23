@@ -10,6 +10,8 @@ import ItemPreview from "../components/ItemPreview";
 import { Box } from "@mui/system";
 import CollectionList from "../components/CollectionList";
 import { TagCloud } from "react-tagcloud";
+import i18next from "i18next";
+import translate from "../utils/translate";
 
 const HomePage = () => {
   const [data, setData] = useState({});
@@ -49,7 +51,7 @@ const HomePage = () => {
     <Box sx={{ m: 3, display: "flex", flexDirection: "column", gap: 6 }}>
       <Box>
         <Typography variant="h4" textAlign="start" sx={{ mb: 1 }}>
-          6 latest items
+          {translate("latestItemsHeader")}
         </Typography>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
           {data.latestItems.map((item, index) => (
@@ -61,7 +63,7 @@ const HomePage = () => {
       </Box>
       <Box>
         <Typography textAlign="start" variant="h4" sx={{ mb: 1 }}>
-          Largest collections
+          {translate("largestCollections")}
         </Typography>
         <Box
           style={{

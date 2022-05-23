@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
 import useAuth from "../hooks/useAuth";
 import { ADMIN, REGULAR } from "../constants/authStates";
+import translate from "../utils/translate";
 
 const getInitialVoteState = (likes, user) => {
   if (user === null) {
@@ -34,8 +35,7 @@ const Comment = ({ author, text, createdAt, _id, likes }) => {
       return acc + obj.value;
     }, 0)
   );
-    const [showVotingError, setShowVotingError] = useState(false);
-
+  const [showVotingError, setShowVotingError] = useState(false);
 
   const setUpVote = () => {
     if (auth === REGULAR || auth === ADMIN) {
@@ -104,7 +104,7 @@ const Comment = ({ author, text, createdAt, _id, likes }) => {
               {new Date(createdAt).toLocaleString()}
             </Typography>
             <Typography variant="h5" component="div">
-              Author: {author.email}
+              {translate("author")}: {author.email}
             </Typography>
             <Typography variant="h6" style={{ wordWrap: "break-word" }}>
               {text}
@@ -131,9 +131,7 @@ const Comment = ({ author, text, createdAt, _id, likes }) => {
               </IconButton>
             </Box>
             {showVotingError && (
-              <Typography color="red">
-                Log in to like/dislike the comment
-              </Typography>
+              <Typography color="red">{translate("likeError")}</Typography>
             )}
           </Grid>
         </Grid>

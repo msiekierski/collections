@@ -31,6 +31,7 @@ import ImageUploader from "./ImageUploader";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
+import translate from "../utils/translate";
 
 const validationSchema = yup.object({
   name: yup.string().required("Collection name is required"),
@@ -109,11 +110,11 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
       scroll="paper"
     >
       <DialogTitle>
-        <Typography variant="h4">Collection creator</Typography>
+        <Typography variant="h4">{translate("collectionCreator")}</Typography>
       </DialogTitle>
 
       <DialogContent>
-        <Typography sx={{ mb: 1 }}>Collection Name</Typography>
+        <Typography sx={{ mb: 1 }}>{translate("collectionName")}</Typography>
         <TextField
           margin="dense"
           fullWidth
@@ -126,7 +127,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
           sx={{ mb: 2 }}
         />
 
-        <Typography sx={{ mb: 1 }}>Descrption</Typography>
+        <Typography sx={{ mb: 1 }}>{translate("description")}</Typography>
         <MDEditor
           value={formik.values.description}
           onChange={(value) =>
@@ -139,7 +140,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
           sx={{ mt: 3 }}
           alignItems="center"
         >
-          <Typography>Topic</Typography>
+          <Typography>{translate("topic")}</Typography>
           <Select
             value={topics.indexOf(formik.values.topic)}
             onChange={(e) =>
@@ -164,7 +165,9 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
             gap: 5,
           }}
         >
-          <Typography textAlign="center">Custom Fields</Typography>
+          <Typography textAlign="center">
+            {translate("customFields")}
+          </Typography>
           <IconButton
             onClick={() =>
               setCustomFields([
@@ -178,7 +181,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
         </div>
         {customFields.length === 0 && (
           <Typography sx={{ mt: 2 }} textAlign="center">
-            Click on "Plus" to add new custom field
+            {translate("customFieldsInfo")}
           </Typography>
         )}
         {customFields.map((customField, index) => (
@@ -235,7 +238,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
             alignItems: "center",
           }}
         >
-          <Typography>Collection photo</Typography>
+          <Typography>{translate("collectionPhoto")}</Typography>
           <div style={{ width: "50%" }}>
             <ImageUploader image={image} setImage={setImage} />
           </div>
@@ -251,7 +254,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
           color="warning"
           fullWidth
         >
-          Cancel
+          {translate("cancel")}
         </Button>
         <LoadingButton
           onClick={() => formik.submitForm()}
@@ -263,7 +266,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
           fullWidth
           sx={{ mt: 2 }}
         >
-          CREATE
+          {translate("create")}
         </LoadingButton>
       </Stack>
     </Dialog>

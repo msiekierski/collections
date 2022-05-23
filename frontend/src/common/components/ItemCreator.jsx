@@ -18,6 +18,7 @@ import * as _ from "lodash";
 import { createNewItem } from "../../features/collectionItemsManagement/collectionItemsAPI";
 import { addItem } from "../../features/collectionItemsManagement/collectionItemsSlice";
 import { useDispatch } from "react-redux";
+import translate from "../utils/translate";
 
 let validationSchema = yup.object({
   name: yup.string().required("Item name is required"),
@@ -96,7 +97,7 @@ const ItemCreator = ({
       scroll="paper"
     >
       <DialogTitle>
-        <Typography variant="h4">Item creator</Typography>
+        <Typography variant="h4">{translate("itemCreator")}</Typography>
       </DialogTitle>
 
       <DialogContent>
@@ -150,7 +151,7 @@ const ItemCreator = ({
             <TextField
               {...params}
               variant="filled"
-              label="Tags"
+              label={translate("tags")}
               error={formik.touched.tags && Boolean(formik.errors.tags)}
               helperText={formik.touched.tags && formik.errors.tags}
               placeholder="Your tag"
@@ -168,7 +169,7 @@ const ItemCreator = ({
           color="warning"
           fullWidth
         >
-          Cancel
+          {translate("cancel")}
         </Button>
         <LoadingButton
           onClick={() => formik.submitForm()}
@@ -180,7 +181,7 @@ const ItemCreator = ({
           fullWidth
           sx={{ mt: 2 }}
         >
-          CREATE
+          {translate("create")}
         </LoadingButton>
       </Stack>
     </Dialog>

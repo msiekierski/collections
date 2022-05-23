@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import MDEditor from "@uiw/react-md-editor";
 import { getItemPageRoute } from "../constants/appRoutes";
+import translate from "../utils/translate";
 
 const CollectionPage = () => {
   const { collectionId } = useParams();
@@ -28,9 +29,9 @@ const CollectionPage = () => {
     const fetchCollection = async () => {
       const { data } = await axios.get(getCollectionByIdUrl(collectionId));
       setTableRows([
-        { name: "Author", value: data.authorId.email },
-        { name: "Name", value: data.name },
-        { name: "Topic", value: data.topic },
+        { name: translate("author"), value: data.authorId.email },
+        { name: translate("name"), value: data.name },
+        { name: translate("topic"), value: data.topic },
       ]);
       setCollection(data);
     };
@@ -69,7 +70,7 @@ const CollectionPage = () => {
         </Table>
       </TableContainer>
       <Box width={"100%"} display="flex" flexDirection="column" gap={3}>
-        <Typography variant="h5">Descrption</Typography>
+        <Typography variant="h5">{translate("description")}</Typography>
         <Paper sx={{ p: 3 }}>
           <Typography noWrap>
             <MDEditor.Markdown
@@ -80,7 +81,7 @@ const CollectionPage = () => {
         </Paper>
       </Box>
       <Box width={"100%"} display="flex" flexDirection="column" gap={3}>
-        <Typography variant="h5">Collection Items</Typography>
+        <Typography variant="h5">{translate("collectionItems")}</Typography>
         {collection.items.map(({ name, tags, _id }) => (
           <Paper elevation={7} sx={{ padding: 3, width: "100%" }}>
             <Grid

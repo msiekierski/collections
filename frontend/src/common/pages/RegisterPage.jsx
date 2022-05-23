@@ -18,6 +18,7 @@ import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { CREATE_USER_URL } from "../constants/apiUrls";
 import { useNavigate } from "react-router-dom";
 import { LOGIN_ROUTE } from "../constants/appRoutes";
+import translate from "../utils/translate";
 
 const validationSchema = yup.object({
   email: yup
@@ -89,7 +90,7 @@ const RegisterPage = () => {
           </Avatar>
         </div>
         <Typography textAlign="center" variant="h5">
-          Create new account
+          {translate("createNewAccount")}
         </Typography>
         {error && (
           <Alert sx={{ mt: 1, mb: 1 }} severity="error">
@@ -114,7 +115,7 @@ const RegisterPage = () => {
             fullWidth
             id="password"
             name="password"
-            label="Password"
+            label={translate("password")}
             value={formik.values.password}
             onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
@@ -126,7 +127,7 @@ const RegisterPage = () => {
             fullWidth
             id="repeatPassword"
             name="repeatPassword"
-            label="Repeat Password"
+            label={translate("repeatPassword")}
             value={formik.values.repeatPassword}
             onChange={formik.handleChange}
             error={
@@ -145,7 +146,7 @@ const RegisterPage = () => {
             fullWidth
             sx={{ mt: 2 }}
           >
-            Register
+            {translate("register")}
           </LoadingButton>
         </Box>
       </Box>

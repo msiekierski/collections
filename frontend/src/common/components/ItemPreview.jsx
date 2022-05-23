@@ -8,6 +8,7 @@ import {
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getItemPageRoute } from "../constants/appRoutes";
+import translate from "../utils/translate";
 
 const ItemPreview = ({ name, collectionId, _id }) => {
   const navigate = useNavigate();
@@ -18,10 +19,11 @@ const ItemPreview = ({ name, collectionId, _id }) => {
           {name}
         </Typography>
         <Typography color="text.secondary">
-          from {!!collectionId && collectionId.name} collection
+          {translate("from")} {!!collectionId && collectionId.name}{" "}
+          {translate("collection")}
         </Typography>
         <Typography color="text.secondary" noWrap={true}>
-          created by{" "}
+          {translate("createdBy") }{" "}
           {!!collectionId &&
             !!collectionId.authorId &&
             collectionId.authorId.email}
@@ -30,7 +32,7 @@ const ItemPreview = ({ name, collectionId, _id }) => {
       </CardContent>
       <CardActions>
         <Button size="small" onClick={() => navigate(getItemPageRoute(_id))}>
-          Learn More
+          {translate("learnMore")}
         </Button>
       </CardActions>
     </Card>

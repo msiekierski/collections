@@ -11,6 +11,7 @@ import React from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getItemsManagerRoute } from "../constants/appRoutes";
+import translate from "../utils/translate";
 
 const CollectionPaper = ({
   name,
@@ -41,7 +42,7 @@ const CollectionPaper = ({
         </Grid>
         <Grid container sm={6} xs={12} justifyContent="flex-end">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography>Items count: {items.length}</Typography>
+            <Typography>{translate("itemsCount")}: {items.length}</Typography>
             {isEditor && (
               <IconButton onClick={() => deleteCollection(_id)}>
                 <DeleteIcon />

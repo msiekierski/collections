@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getItemPageRoute } from "../../constants/appRoutes";
+import translate from "../../utils/translate";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -93,7 +94,7 @@ const SearchBar = () => {
         </SearchIconWrapper>
         <StyledInputBase
           fullWidth
-          placeholder="Search…"
+          placeholder={`${translate("search")}…`}
           inputProps={{ "aria-label": "search" }}
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -123,7 +124,8 @@ const SearchBar = () => {
                 >
                   <Grid>
                     <Typography>
-                      {item.name} from {item.collectionId.name} collection
+                      {item.name} {translate("from")} {item.collectionId.name}{" "}
+                      {translate("collection")}
                     </Typography>
                   </Grid>
                 </ListItemButton>
