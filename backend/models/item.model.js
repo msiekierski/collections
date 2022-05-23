@@ -18,7 +18,7 @@ itemSchema.index({ name: "text", tags: "text" });
 itemSchema.pre("deleteMany", async function (next) {
   try {
     let deletedData = await Item.find(this._conditions).lean();
-    console.log(deletedData);
+
     await Promise.all(
       deletedData.map((data) => Comment.deleteMany({ itemId: data["_id"] }))
     );

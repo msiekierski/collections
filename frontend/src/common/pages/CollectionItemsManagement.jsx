@@ -16,6 +16,7 @@ import ItemCreator from "../../common/components/ItemCreator";
 import { removeItems } from "../../features/collectionItemsManagement/collectionItemsAPI";
 import translate from "../utils/translate";
 import { Box } from "@mui/system";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const CollectionItemsManagement = () => {
   const { email, collectionId } = useParams();
@@ -47,18 +48,7 @@ const CollectionItemsManagement = () => {
   }, []);
 
   if (isFetching) {
-    return (
-      <div
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-        }}
-      >
-        <CircularProgress />
-      </div>
-    );
+    return <LoadingSpinner />;
   }
   const handleDeleteSelectedClick = async () => {
     if (selectedIds.length) {

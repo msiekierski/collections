@@ -15,9 +15,8 @@ commentSchema.index({ text: "text" });
 
 commentSchema.pre("deleteMany", async function (next) {
   try {
-    console.log("in pre commnet");
     let deletedData = await Comment.find(this._conditions).lean();
-    console.log(deletedData);
+
     await Promise.allSettled(
       deletedData.map((data) =>
         CommentLike.deleteMany({ commentId: data["_id"] })

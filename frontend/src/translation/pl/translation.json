@@ -36,5 +36,7 @@
   "repeatPassword": "Powtórz Hasło",
   "likeError": "Zaloguj się aby ocenić komentarz",
   "clickToRegister": "Nie masz konta? Kliknij i zarejestruj się",
-  "userHasNoCollections": "Użytkownik nie ma żadnych kolekcji"
+  "userHasNoCollections": "Użytkownik nie ma żadnych kolekcji",
+  "noCollections": "W bazie danych nie ma żadnych kolekcji",
+  "noItems": "W bazie danych nie ma żadnych przedmiotów"
 }

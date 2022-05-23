@@ -54,7 +54,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      topic: {},
+      topic: { _id: "BOOKS" },
       description: "",
     },
     validationSchema,
@@ -95,7 +95,6 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
         const { data } = await axios.get(COLLECTION_TOPICS_URL);
         if (isMounted) {
           setTopics(data);
-          //   formik.setValues({ ...formik.values, topic: topics[0].name });
         }
       } catch (e) {}
     };
@@ -106,6 +105,10 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
       formik.resetForm();
     };
   }, []);
+
+  console.log(topics);
+
+  console.log(formik.values);
 
   return (
     <Dialog
@@ -148,8 +151,11 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
           alignItems="center"
         >
           <Typography>{translate("topic")}</Typography>
+
           <Select
-            value={topics.indexOf(formik.values.topic)}
+            value={topics.findIndex(
+              (topic) => topic["_id"] === formik.values.topic["_id"]
+            )}
             onChange={(e) =>
               formik.setValues({
                 ...formik.values,

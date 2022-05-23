@@ -57,6 +57,11 @@ const HomePage = () => {
           {translate("latestItemsHeader")}
         </Typography>
         <Grid container justifyContent="center" alignItems="center" spacing={2}>
+          {data.latestItems.length === 0 && (
+            <Typography variant="h5" sx={{ fontStyle: "italic" }}>
+              {translate("noItems")}
+            </Typography>
+          )}
           {data.latestItems.map((item, index) => (
             <Grid xl={2} md={4} item key={index}>
               <ItemPreview {...item} />
@@ -76,6 +81,11 @@ const HomePage = () => {
             alignItems: "center",
           }}
         >
+          {data.largestCollections.length === 0 && (
+            <Typography variant="h5" sx={{ fontStyle: "italic" }}>
+              {translate("noCollections")}
+            </Typography>
+          )}
           <CollectionList collections={data.largestCollections} />
         </Box>
       </Box>
