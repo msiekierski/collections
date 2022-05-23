@@ -29,13 +29,19 @@ router.route("/").post(async (req, res) => {
 router.route("/logIn").post(async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email, password }, { password: 0 });
+    const user = await User.findOne({ email });
     if (!!user) {
-      if (user.isBlocked) {
-        res.status(403).send("Account blocked");
+      const passValidation = await user.validatePassword(password);
+      if (passValidation) {
+        if (user.isBlocked) {
+          res.status(403).send("Account blocked");
+          return;
+        }
+        res.json(user);
         return;
+      } else {
+        res.status(404).send("Invalid credentials");
       }
-      res.json(user);
     } else {
       res.status(404).send("Invalid credentials");
     }

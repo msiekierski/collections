@@ -36,7 +36,7 @@ router.route("/user/:userId").post(async (req, res) => {
     imageUrl,
   });
   newCollection = await Collection.create(newCollection);
-  console.log(newCollection);
+
   const newCustomFields = await Promise.allSettled(
     customFields.map((customField) => {
       const { name, type } = customField;

@@ -64,7 +64,6 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
         let imgToBase64 = null;
         if (image) {
           imgToBase64 = await toBase64(image);
-          console.log(imgToBase64);
         }
 
         const { data } = await axios.post(

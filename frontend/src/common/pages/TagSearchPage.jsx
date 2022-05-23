@@ -16,8 +16,6 @@ const TagSearchPage = () => {
   const [allTags, setAllTags] = useState([]);
   const { tag } = useParams();
   const navigate = useNavigate();
-  console.log("items");
-  console.log(items);
 
   useEffect(() => {
     const fetchItems = async () => {
@@ -44,7 +42,7 @@ const TagSearchPage = () => {
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          gap: 3
+          gap: 3,
         }}
       >
         <Autocomplete

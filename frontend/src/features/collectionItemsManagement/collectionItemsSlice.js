@@ -18,7 +18,7 @@ export const fetchCollection = createAsyncThunk(
     const tags = await fetchUniqueTags();
     const data = collection.data;
     data.uniqueTags = tags.data;
-    console.log(data);
+
     return data;
   }
 );

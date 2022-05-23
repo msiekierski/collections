@@ -84,8 +84,6 @@ const SearchBar = () => {
     }
   }, [text]);
 
-  console.log(searchItems);
-
   return (
     <>
       <Search ref={searchBarRef}>
