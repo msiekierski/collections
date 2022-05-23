@@ -51,7 +51,8 @@ const NavBar = () => {
   const { settings } = user;
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down(1180));
+
+  const matches = useMediaQuery(theme.breakpoints.down(auth === GUEST ? 1450 : 1180));
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
