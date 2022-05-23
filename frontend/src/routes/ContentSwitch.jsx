@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, Navigate } from "react-router-dom";
 
 import React from "react";
 import HomePage from "../common/pages/HomePage";
@@ -74,6 +74,7 @@ const ContentSwitch = () => {
         }
       />
       <Route path={TAG_SEARCH_ROUTE} element={<TagSearchPage />} />
+      <Route path={"*"} element={<Navigate replace to={HOME_ROUTE} />} />
     </Routes>
   );
 };
