@@ -16,10 +16,10 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import axios from "axios";
 import LockIcon from "@mui/icons-material/Lock";
 import { CREATE_USER_URL, LOGIN_USER_URL } from "../constants/apiUrls";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, selectUser } from "../../features/user/userSlice";
-import { HOME_ROUTE } from "../constants/appRoutes";
+import { HOME_ROUTE, REGISTER_ROUTE } from "../constants/appRoutes";
 import translate from "../utils/translate";
 
 const validationSchema = yup.object({
@@ -117,6 +117,9 @@ const LoginPage = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+          <Link to={REGISTER_ROUTE}>
+            <Typography>{translate("clickToRegister")}</Typography>
+          </Link>
           <LoadingButton
             loading={isLoading}
             loadingPosition="end"

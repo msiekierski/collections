@@ -32,6 +32,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
 import LoadingButton from "@mui/lab/LoadingButton";
 import translate from "../utils/translate";
+import toBase64 from "../utils/toBase64";
 
 const validationSchema = yup.object({
   name: yup.string().required("Collection name is required"),
@@ -43,7 +44,7 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [topics, setTopics] = useState([]);
   const [customFields, setCustomFields] = useState([]);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const { settings, user } = useSelector(selectUser);
   document.documentElement.setAttribute(
     "data-color-mode",
@@ -60,11 +61,18 @@ const CollectionCreator = ({ isOpen, handleClose, author, addCollection }) => {
     onSubmit: async (values) => {
       setIsSubmitting(true);
       try {
+        let imgToBase64 = null;
+        if (image) {
+          imgToBase64 = await toBase64(image);
+          console.log(imgToBase64);
+        }
+
         const { data } = await axios.post(
           getCollectionCreationUrl(author["_id"]),
           {
             ...values,
             customFields,
+            imageBase64: imgToBase64,
           }
         );
         addCollection(data);

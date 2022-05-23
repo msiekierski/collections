@@ -8,6 +8,7 @@ const initialState = {
   topic: "",
   name: "",
   uniqueTags: [],
+  imageUrl: "",
 };
 
 export const fetchCollection = createAsyncThunk(
@@ -17,6 +18,7 @@ export const fetchCollection = createAsyncThunk(
     const tags = await fetchUniqueTags();
     const data = collection.data;
     data.uniqueTags = tags.data;
+    console.log(data);
     return data;
   }
 );
@@ -40,13 +42,15 @@ export const collectionItemsSlice = createSlice({
         state.isFetching = true;
       })
       .addCase(fetchCollection.fulfilled, (state, action) => {
-        const { items, name, topic, customFields, uniqueTags } = action.payload;
+        const { items, name, topic, customFields, uniqueTags, imageUrl } =
+          action.payload;
         state.items = items;
         state.name = name;
         state.topic = topic;
         state.isFetching = false;
         state.customFields = customFields;
         state.uniqueTags = uniqueTags;
+        state.imageUrl = imageUrl;
       });
   },
 });

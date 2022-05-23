@@ -34,5 +34,6 @@
   "collectionItems": "Collection Items",
   "itemCreator": "Item creator",
   "repeatPassword": "Repeat Password",
-  "likeError": "Log in to like/dislike the comment"
+  "likeError": "Log in to like/dislike the comment",
+  "clickToRegister": "Don't have an account? Click to register"
 }

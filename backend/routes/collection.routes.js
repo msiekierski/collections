@@ -1,23 +1,42 @@
 var express = require("express");
 var router = express.Router();
+var axios = require("axios");
+var uuid = require("uuid");
+require("dotenv").config();
 const Collection = require("../models/collection.model");
 const CollectionTopic = require("../models/collectionTopic.model");
 const User = require("../models/user.model");
 const CustomField = require("../models/customField.model");
 const Item = require("../models/item.model");
+var ImageKit = require("imagekit");
+
+var imagekit = new ImageKit({
+  publicKey: "public_c9qJcaJo2a5c/EnoGuBChw04deo=",
+  privateKey: `${process.env.IMAGE_API_PRIVATE_KEY}`,
+  urlEndpoint: "https://ik.imagekit.io/ia0isbt2n/",
+});
 
 router.route("/user/:userId").post(async (req, res) => {
   const { userId } = req.params;
-  const { name, topic, description, customFields } = req.body;
+  const { name, topic, description, customFields, imageBase64 } = req.body;
+  let imageUrl = "";
+  if (imageBase64 !== null) {
+    const result = await imagekit.upload({
+      file: imageBase64, //required
+      fileName: uuid.v4(), //required
+    });
+    imageUrl = result.url;
+  }
 
   let newCollection = new Collection({
     name,
     topic: topic["_id"],
     description,
     authorId: userId,
+    imageUrl,
   });
   newCollection = await Collection.create(newCollection);
-
+  console.log(newCollection);
   const newCustomFields = await Promise.allSettled(
     customFields.map((customField) => {
       const { name, type } = customField;

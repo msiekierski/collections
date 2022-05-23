@@ -34,5 +34,6 @@
   "collectionItems": "Przedmioty z kolekcji",
   "itemCreator": "Kreator przedmiotu",
   "repeatPassword": "Powtórz Hasło",
-  "likeError": "Zaloguj się aby ocenić komentarz"
+  "likeError": "Zaloguj się aby ocenić komentarz",
+  "clickToRegister": "Nie masz konta? Kliknij i zarejestruj się"
 }

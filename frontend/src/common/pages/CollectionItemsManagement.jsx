@@ -15,12 +15,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ItemCreator from "../../common/components/ItemCreator";
 import { removeItems } from "../../features/collectionItemsManagement/collectionItemsAPI";
 import translate from "../utils/translate";
+import { Box } from "@mui/system";
 
 const CollectionItemsManagement = () => {
   const { email, collectionId } = useParams();
   const [isCreatorOpen, setIsCreatorOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
-  const { isFetching, items, name, topic, customFields, uniqueTags } =
+  const { isFetching, items, name, topic, customFields, uniqueTags, imageUrl } =
     useSelector(selectCollectionItems);
 
   const navigate = useNavigate();
@@ -86,6 +87,17 @@ const CollectionItemsManagement = () => {
         <Typography component="div" variant="h5" textAlign="center">
           ({topic})
         </Typography>
+        <Box
+          sx={{
+            m: 3,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img src={imageUrl} />
+        </Box>
+
         <Stack direction="row" spacing={3} sx={{ mt: 5 }}>
           <Button
             color="success"

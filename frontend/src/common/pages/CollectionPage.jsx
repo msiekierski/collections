@@ -19,6 +19,7 @@ import {
 import MDEditor from "@uiw/react-md-editor";
 import { getItemPageRoute, getTagSearchRoute } from "../constants/appRoutes";
 import translate from "../utils/translate";
+import Image from "material-ui-image";
 
 const CollectionPage = () => {
   const { collectionId } = useParams();
@@ -53,7 +54,7 @@ const CollectionPage = () => {
         gap: 5,
       }}
     >
-      <Avatar />
+      <img src={collection.imageUrl} />
       <TableContainer component={Paper} sx={{ p: 3 }}>
         <Table>
           <TableBody>
@@ -113,7 +114,9 @@ const CollectionPage = () => {
                       key={index}
                       label={tag}
                       variant="outlined"
-                      onClick={() => {navigate(getTagSearchRoute(tag))}}
+                      onClick={() => {
+                        navigate(getTagSearchRoute(tag));
+                      }}
                     />
                   ))}
                 </Box>
