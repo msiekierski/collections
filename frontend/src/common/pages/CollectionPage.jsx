@@ -17,7 +17,11 @@ import {
   Typography,
 } from "@mui/material";
 import MDEditor from "@uiw/react-md-editor";
-import { getItemPageRoute, getTagSearchRoute } from "../constants/appRoutes";
+import {
+  getCollectionManagerRoute,
+  getItemPageRoute,
+  getTagSearchRoute,
+} from "../constants/appRoutes";
 import translate from "../utils/translate";
 import Image from "material-ui-image";
 
@@ -58,7 +62,19 @@ const CollectionPage = () => {
       <TableContainer component={Paper} sx={{ p: 3 }}>
         <Table>
           <TableBody>
-            {tableRows.map(({ name, value }, index) => (
+            <TableRow>
+              <TableCell>
+                <Typography>{tableRows[0].name}</Typography>
+              </TableCell>
+              <TableCell
+                onClick={() =>
+                  navigate(getCollectionManagerRoute(tableRows[0].value))
+                }
+              >
+                <Typography textAlign="end">{tableRows[0].value}</Typography>
+              </TableCell>
+            </TableRow>
+            {tableRows.slice(1).map(({ name, value }, index) => (
               <TableRow key={index}>
                 <TableCell>
                   <Typography>{name}</Typography>

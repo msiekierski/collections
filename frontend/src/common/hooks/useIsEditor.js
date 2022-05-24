@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import { selectUser } from "../../features/user/userSlice";
 import { ADMIN, REGULAR } from "../constants/authStates";
 import useAuth from "./useAuth";

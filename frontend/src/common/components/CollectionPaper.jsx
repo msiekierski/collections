@@ -28,21 +28,28 @@ const CollectionPaper = ({
     <Paper elevation={7} sx={{ padding: 3, m: 3 }}>
       <Grid container justifyContent="space-between" alignItems="center">
         <Grid item sm={6} xs={12}>
-          <Link
-            to={getItemsManagerRoute(email, _id)}
-            style={{ textDecoration: "none", color: "inherit" }}
+          <div
+            onClick={() => {
+              navigate(getItemsManagerRoute(email, _id), {
+                state: { collectionId: _id },
+              });
+            }}
           >
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar></Avatar>
-              <Typography>
-                {name} - {topic}
-              </Typography>
-            </Stack>
-          </Link>
+            <Link to="#" style={{ textDecoration: "none", color: "inherit" }}>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Avatar></Avatar>
+                <Typography>
+                  {name} - {topic}
+                </Typography>
+              </Stack>
+            </Link>
+          </div>
         </Grid>
         <Grid container sm={6} xs={12} justifyContent="flex-end">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Typography>{translate("itemsCount")}: {items.length}</Typography>
+            <Typography>
+              {translate("itemsCount")}: {items.length}
+            </Typography>
             {isEditor && (
               <IconButton onClick={() => deleteCollection(_id)}>
                 <DeleteIcon />

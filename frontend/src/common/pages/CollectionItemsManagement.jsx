@@ -1,7 +1,7 @@
 import { Button, CircularProgress, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
   fetchCollection,
   removeItemsByIds,
@@ -17,9 +17,20 @@ import { removeItems } from "../../features/collectionItemsManagement/collection
 import translate from "../utils/translate";
 import { Box } from "@mui/system";
 import LoadingSpinner from "../components/LoadingSpinner";
+import useIsEditor from "../hooks/useIsEditor";
+import { getCollectionPageRoute, HOME_ROUTE } from "../constants/appRoutes";
+import { selectUser } from "../../features/user/userSlice";
+import useAuth from "../hooks/useAuth";
+import { ADMIN } from "../constants/authStates";
 
 const CollectionItemsManagement = () => {
   const { email, collectionId } = useParams();
+  console.log("params");
+  console.log(email);
+
+  const { user } = useSelector(selectUser);
+  const auth = useAuth();
+  const isEditor = useIsEditor(email);
   const [isCreatorOpen, setIsCreatorOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState([]);
   const { isFetching, items, name, topic, customFields, uniqueTags, imageUrl } =
@@ -28,6 +39,7 @@ const CollectionItemsManagement = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { height, width } = useWindowDimensions();
+  const { state } = useLocation();
 
   const columnsCount = 3 + customFields.length + 1;
   const columns = [
@@ -45,6 +57,12 @@ const CollectionItemsManagement = () => {
 
   useEffect(() => {
     dispatch(fetchCollection(collectionId));
+  }, []);
+
+  useEffect(() => {
+    if (!(auth === ADMIN || user.email === email)) {
+      navigate(getCollectionPageRoute(state.collectionId));
+    }
   }, []);
 
   if (isFetching) {

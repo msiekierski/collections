@@ -17,6 +17,7 @@ import {
 } from "../constants/apiUrls";
 import CollectionPaper from "../components/CollectionPaper";
 import translate from "../utils/translate";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const UserCollectionsPage = () => {
   let { email } = useParams();
@@ -63,7 +64,7 @@ const UserCollectionsPage = () => {
   }, []);
 
   if (isFetching) {
-    return <CircularProgress />;
+    return <LoadingSpinner />;
   }
 
   if (collections.length === 0) {

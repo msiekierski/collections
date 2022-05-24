@@ -31,7 +31,7 @@ import TagSearchPage from "../common/pages/TagSearchPage";
 const ContentSwitch = () => {
   const auth = useAuth();
   const params = useParams();
-  const isEditor = useIsEditor(params.email);
+  let isEditor = useIsEditor(params.email);
   return (
     <Routes>
       <Route path={HOME_ROUTE} element={<HomePage />} />
@@ -58,7 +58,10 @@ const ContentSwitch = () => {
       <Route
         path={ITEMS_MANAGER_ROUTE}
         element={
-          <PrivateRoute redirectPath={HOME_ROUTE} isAllowed={auth !== GUEST}>
+          <PrivateRoute
+            redirectPath={HOME_ROUTE}
+            isAllowed={auth !== GUEST}
+          >
             <CollectionItemsManagement />
           </PrivateRoute>
         }
